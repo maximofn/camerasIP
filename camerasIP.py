@@ -37,8 +37,10 @@ while (capture_bedroom.isOpened()):
         print(f'ret_bedromm: {ret_bedromm} ret_romm: {ret_romm}')
         if ret_bedromm == False:
             capture_bedroom.release()
+            capture_bedroom = cv2.VideoCapture(filename_bedroom)
         if ret_romm == False:
             capture_room.release()
+            capture_room = cv2.VideoCapture(filename_room)
         continue
 
 capture_bedroom.release()
