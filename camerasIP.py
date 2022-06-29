@@ -34,7 +34,12 @@ while (capture_bedroom.isOpened()):
             break
         
     else:
-        break
+        print(f'ret_bedromm: {ret_bedromm} ret_romm: {ret_romm}')
+        if ret_bedromm == False:
+            capture_bedroom.release()
+        if ret_romm == False:
+            capture_room.release()
+        continue
 
 capture_bedroom.release()
 capture_room.release()
