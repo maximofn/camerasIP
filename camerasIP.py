@@ -7,22 +7,38 @@ AXIS_HORIZONTAL = 1
 AXIS_VERTICAL = 0
 
 # Open cameras
-filename_bedroom = f'rtsp://{CAMERA_BEDROOM_USER}:{CAMERA_BEDROOM_PASSWORD}@{CAMERA_BEDROOM_IP}:{PORT}/{STREAM}'
+filename_bedroom = f'{PROTOCOL}://{CAMERA_BEDROOM_USER}:{CAMERA_BEDROOM_PASSWORD}@{CAMERA_BEDROOM_IP}:{PORT}/{HD_STREAM}'
 capture_bedroom = cv2.VideoCapture(filename_bedroom)
 if capture_bedroom.isOpened():
     bedroom_opened = True
-    print("Bedroom camera connected:")
+    print("Bedroom camera connected in HD")
 else:
     bedroom_opened = False
-    print("Bedroom camera not connected:")
-filename_room = f'rtsp://{CAMERA_ROOM_USER}:{CAMERA_ROOM_PASSWORD}@{CAMERA_ROOM_IP}:{PORT}/{STREAM}'
+    print("Bedroom camera not connected in HD, trying in SD")
+    filename_bedroom = f'{PROTOCOL}://{CAMERA_BEDROOM_USER}:{CAMERA_BEDROOM_PASSWORD}@{CAMERA_BEDROOM_IP}:{PORT}/{SD_STREAM}'
+    capture_bedroom = cv2.VideoCapture(filename_bedroom)
+    if capture_bedroom.isOpened():
+        bedroom_opened = True
+        print("Bedroom camera connected in SD")
+    else:
+        bedroom_opened = False
+        print("Bedroom camera not connected in SD")
+filename_room = f'{PROTOCOL}://{CAMERA_ROOM_USER}:{CAMERA_ROOM_PASSWORD}@{CAMERA_ROOM_IP}:{PORT}/{HD_STREAM}'
 capture_room = cv2.VideoCapture(filename_room)
 if capture_room.isOpened():
     room_opened = True
-    print("Room camera connected:")
+    print("Room camera connected in HD")
 else:
     room_opened = False
-    print("Room camera not connected:")
+    print("Room camera not connected in HD, trying in SD")
+    filename_room = f'{PROTOCOL}://{CAMERA_ROOM_USER}:{CAMERA_ROOM_PASSWORD}@{CAMERA_ROOM_IP}:{PORT}/{SD_STREAM}'
+    capture_room = cv2.VideoCapture(filename_room)
+    if capture_room.isOpened():
+        room_opened = True
+        print("Room camera connected in SD")
+    else:
+        room_opened = False
+        print("Room camera not connected in SD")
 
 
 while (capture_bedroom.isOpened() or capture_room.isOpened()):
