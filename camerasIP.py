@@ -46,15 +46,17 @@ while (capture_bedroom.isOpened() or capture_room.isOpened()):
     if capture_bedroom.isOpened():
         ret_bedroom, frame_bedroom = capture_bedroom.read()
         # If capturated frame is not in HD, resize it
-        if frame_bedroom.shape[0] != HD_RESOLUTION[0]:
-            frame_bedroom = cv2.resize(frame_bedroom, (HD_RESOLUTION[1], HD_RESOLUTION[0]))
+        if ret_bedroom:
+            if frame_bedroom.shape[0] != HD_RESOLUTION[0]:
+                frame_bedroom = cv2.resize(frame_bedroom, (HD_RESOLUTION[1], HD_RESOLUTION[0]))
     else:
         ret_bedroom = False
     if capture_room.isOpened():
         ret_room, frame_room = capture_room.read()
         # If capturated frame is not in HD, resize it
-        if frame_room.shape[0] != HD_RESOLUTION[0]:
-            frame_room = cv2.resize(frame_room, (HD_RESOLUTION[1], HD_RESOLUTION[0]))
+        if ret_room:
+            if frame_room.shape[0] != HD_RESOLUTION[0]:
+                frame_room = cv2.resize(frame_room, (HD_RESOLUTION[1], HD_RESOLUTION[0]))
     else:
         ret_room = False
 
